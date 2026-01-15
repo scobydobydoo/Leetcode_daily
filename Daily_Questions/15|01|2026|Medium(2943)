@@ -1,0 +1,72 @@
+🟦 Maximum Area of Square Hole in a Grid
+
+
+🧩 Problem Statement
+
+You are given two integers n and m, and two integer arrays hBars and vBars.
+
+The grid has n + 2 horizontal bars and m + 2 vertical bars.
+
+These bars form 1 × 1 unit cells.
+
+Bars are indexed starting from 1.
+
+You may remove some bars listed in hBars and vBars.
+
+All other bars are fixed and cannot be removed.
+
+Return the maximum area of a square-shaped hole that can be formed after removing some bars (possibly none).
+
+
+🧠 Intuition
+
+Removing consecutive bars merges adjacent rows or columns into a larger continuous gap.
+
+If k consecutive horizontal bars are removed → height becomes k + 1
+
+If k consecutive vertical bars are removed → width becomes k + 1
+
+To form a square hole, height and width must be equal.
+So we find the largest consecutive sequence of removed horizontal and vertical bars and take the minimum of the two.
+
+
+🛠️ Approach
+
+Sort both hBars and vBars.
+
+Find the longest consecutive sequence in each array.
+
+Convert bar count to cell size by adding 1.
+
+Take the minimum of horizontal and vertical sizes.
+
+Return the square of the side length.
+
+
+
+⏱️ Complexity
+
+Time: O(H log H + V log V)
+
+Space: O(1)
+
+
+# Code
+```python []
+class Solution(object):
+    def maximizeSquareHoleArea(self, n, m, hBars, vBars):
+        hBars.sort()
+        vBars.sort()
+
+        def longest (arr):
+            mxx=curr=1
+            for i in range(1,len(arr)):
+                if arr[i] == arr[i-1] + 1:
+                    curr +=1
+                else :
+                    curr =1 
+                mxx=max(mxx, curr)
+            return mxx
+        sides= min(longest(hBars) + 1, longest(vBars) + 1)
+        return sides*sides
+```
