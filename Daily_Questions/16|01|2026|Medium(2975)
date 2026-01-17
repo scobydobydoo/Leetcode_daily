@@ -1,0 +1,29 @@
+class Solution:
+    def maximizeSquareArea(self, m: int, n: int, h_fences: List[int], v_fences: List[int]) -> int:
+        MOD = 10**9 + 7
+        if m == n:
+            return (((m-1) % MOD) ** 2) % MOD
+   
+        possible_heights = set()
+        h_fences.extend([1, m]) 
+        v_fences.extend([1, n]) 
+        
+
+        if len(h_fences) > len(v_fences):
+            h_fences, v_fences = v_fences, h_fences 
+
+        v_fences.sort()
+        res = 0
+        for i in range(len(h_fences)-1):
+            for j in range(i+1, len(h_fences)):
+                possible_heights.add(abs(h_fences[i] - h_fences[j]))
+        
+
+        for i in range(len(v_fences)-1):
+            for j in range(len(v_fences)-1, i, -1):
+                width = v_fences[j] - v_fences[i]
+                if width in possible_heights:
+                    res = max(res, width)
+                    break
+    
+        return ((res % MOD) ** 2) % MOD if res else -1
