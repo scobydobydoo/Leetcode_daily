@@ -1,0 +1,16 @@
+class Solution(object):
+    def minimumCost(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        x1=nums[0]
+        minn=sys.maxsize
+        mintwo=sys.maxsize
+        for i in range(1,len(nums)):
+            if nums[i] < minn:
+                mintwo=minn
+                minn=nums[i]
+            elif nums[i] < mintwo:
+                mintwo=nums[i]
+        return x1 + minn + mintwo
